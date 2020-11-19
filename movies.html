@@ -132,7 +132,7 @@ function ready(error, kickstarter, movies, games) {
   // build treemap
   var treemapLayout = d3.treemap()
   .size([1880, 880])
-  .paddingOuter(0);
+  .paddingOuter(16);
 
   var rootNode = d3.hierarchy(curr)
   
