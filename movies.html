@@ -77,6 +77,13 @@ let links = d3.select("body")
             .append("div")
             .attr("id", "links");
 
+// tooltip
+let tooltip = d3.select("body")
+                .append("div")
+                .attr("id", "tooltip")
+                .style("opacity", 0);
+
+
 let kick_url = "https://vlsalina.github.io/kickstarter";
 let movies_url = "https://vlsalina.github.io/movies";
 let games_url = "https://vlsalina.github.io/games";
@@ -121,20 +128,11 @@ function ready(error, kickstarter, movies, games) {
 
   let curr = movies;
 
-  // content switch
-  d3.select("#kick")
-    .on("click", onClickKick);
-
-  d3.select("#mov")
-    .on("click", onClickMov);
-
-  d3.select("#gam")
-    .on("click", onClickGam);
 
   // build treemap
   var treemapLayout = d3.treemap()
   .size([1880, 880])
-  .paddingOuter(16);
+  .paddingOuter(0);
 
   var rootNode = d3.hierarchy(curr)
   
@@ -218,17 +216,30 @@ function ready(error, kickstarter, movies, games) {
 
   }
 
-  function onClickKick() {
-    curr = kickstarter;
+  // mouseover
+  function onMouseMove(d,i) {      
+     
+    let str = "";
+    let node = d3.select(this); 
+
+    str = "Name: " + node.attr("id") + "<br>" +
+          "Category: " + node.attr("category") + "<br>" +
+          "Value: " + node.attr("value");
+
+    let x = d3.event.pageX;
+    let y = d3.event.pageY;
+
+      tooltip.html(str)
+            .style("opacity", 1)
+            .style("background-color", "black")
+            .style("color", "white")
+            .style("padding", "20px")
+            .style("position", "absolute")
+            .style("left", (x+20) + "px")
+            .style("top", y + "px")
+            .style("border-radius", "10px");  
   }
 
-  function onClickMov() {
-    curr = movies;
-  }
-
-  function onClickGam() {
-    curr = games;
-  }
 
 } 
 
