@@ -129,22 +129,12 @@ function ready(error, kickstarter, movies, games) {
   console.log(movies);
   console.log(games);
 
-  let curr = kickstarter;
-
-  // content switch
-  d3.select("#kick")
-    .on("click", onClickKick);
-
-  d3.select("#mov")
-    .on("click", onClickMov);
-
-  d3.select("#gam")
-    .on("click", onClickGam);
+  let curr = movies; 
 
   // build treemap
   var treemapLayout = d3.treemap()
   .size([1880, 880])
-  .paddingOuter(0);
+  .paddingOuter(16);
 
   var rootNode = d3.hierarchy(curr)
   
@@ -165,6 +155,8 @@ function ready(error, kickstarter, movies, games) {
   nodes
   .append('rect')
   .attr("class", "rect")
+  .attr("category", function(d) { return d.data.category; })
+  .attr("value", function(d) { return d.data.value; })
   .attr("id", function(d) { return d.data.name; })
   .attr('width', function(d) { return d.x1 - d.x0; })
   .attr('height', function(d) { return d.y1 - d.y0; });

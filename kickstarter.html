@@ -83,6 +83,8 @@ let tooltip = d3.select("body")
                 .attr("id", "tooltip")
                 .style("opacity", 0);
 
+
+
 let kick_url = "https://vlsalina.github.io/kickstarter";
 let movies_url = "https://vlsalina.github.io/movies";
 let games_url = "https://vlsalina.github.io/games";
@@ -110,6 +112,8 @@ links.append("span")
       .html("Games");
 
 
+
+
 let kickstarter = "https://cdn.freecodecamp.org/testable-projects-fcc/data/tree_map/kickstarter-funding-data.json";
 let movies = "https://cdn.freecodecamp.org/testable-projects-fcc/data/tree_map/movie-data.json";
 let games = "https://cdn.freecodecamp.org/testable-projects-fcc/data/tree_map/video-game-sales-data.json";
@@ -125,13 +129,12 @@ function ready(error, kickstarter, movies, games) {
   console.log(movies);
   console.log(games);
 
-  let curr = kickstarter;
-
+  let curr = kickstarter; 
 
   // build treemap
   var treemapLayout = d3.treemap()
   .size([1880, 880])
-  .paddingOuter(0);
+  .paddingOuter(16);
 
   var rootNode = d3.hierarchy(curr)
   
@@ -245,8 +248,7 @@ function ready(error, kickstarter, movies, games) {
             .style("left", (x+20) + "px")
             .style("top", y + "px")
             .style("border-radius", "10px");  
-  } 
-
+  }
 
 } 
 
