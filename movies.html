@@ -132,7 +132,7 @@ function ready(error, kickstarter, movies, games) {
   // build treemap
   var treemapLayout = d3.treemap()
   .size([1880, 880])
-  .paddingOuter(16);
+  .paddingOuter(0);
 
   var rootNode = d3.hierarchy(curr)
   
@@ -166,6 +166,11 @@ function ready(error, kickstarter, movies, games) {
   .attr("x", 3)
   .attr("y", 10)
   .call(wrapText);
+
+  d3.selectAll(".rect")
+   .on("mousemove", onMouseMove);
+  d3.select("#tooltip")
+   .on("mousemove", onMouseMove);
 
   
   // wrapper
