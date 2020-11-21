@@ -172,6 +172,7 @@ function ready(error, kickstarter, movies, games) {
   .attr("y", 10)
   .call(wrapText);
 
+  // mouse events
   d3.selectAll(".rect")
    .on("mousemove", onMouseMove);
   d3.select("#tooltip")
@@ -239,6 +240,8 @@ function ready(error, kickstarter, movies, games) {
     let x = d3.event.pageX;
     let y = d3.event.pageY;
 
+
+    if (node.attr("category") != null) {
       tooltip.html(str)
             .style("opacity", 1)
             .style("background-color", "black")
@@ -248,6 +251,9 @@ function ready(error, kickstarter, movies, games) {
             .style("left", (x+20) + "px")
             .style("top", y + "px")
             .style("border-radius", "10px");  
+    } else {
+      tooltip.style("opacity", 0);
+    }
   }
 
 } 
