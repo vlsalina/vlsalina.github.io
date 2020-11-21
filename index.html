@@ -29,7 +29,6 @@
   }
 
   rect {
-    fill: cadetblue;
     opacity: 0.3;
     stroke: white;
   }
@@ -111,7 +110,8 @@ links.append("span")
       .attr("href", games_url)
       .html("Games");
 
-
+// colors
+let colors = d3.scaleOrdinal();
 
 
 let kickstarter = "https://cdn.freecodecamp.org/testable-projects-fcc/data/tree_map/kickstarter-funding-data.json";
@@ -129,7 +129,20 @@ function ready(error, kickstarter, movies, games) {
   console.log(movies);
   console.log(games);
 
+
+  // default data
   let curr = movies; 
+
+  // get categories
+  let categories = curr.children.map(function(data) {
+                          return data.name;
+                      });
+
+  // color scale
+  console.log(categories);
+  colors.domain(categories);
+  colors.range(d3.schemeCategory20);
+  
 
   // build treemap
   var treemapLayout = d3.treemap()
@@ -159,7 +172,10 @@ function ready(error, kickstarter, movies, games) {
   .attr("value", function(d) { return d.data.value; })
   .attr("id", function(d) { return d.data.name; })
   .attr('width', function(d) { return d.x1 - d.x0; })
-  .attr('height', function(d) { return d.y1 - d.y0; });
+  .attr('height', function(d) { return d.y1 - d.y0; })
+  .attr("fill", function(d) {
+      return colors(d.data.category); 
+  });
   
   nodes
   .append('text')

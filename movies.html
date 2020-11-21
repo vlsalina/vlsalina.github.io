@@ -29,7 +29,6 @@
   }
 
   rect {
-    fill: cadetblue;
     opacity: 0.3;
     stroke: white;
   }
@@ -111,7 +110,8 @@ links.append("span")
       .attr("href", games_url)
       .html("Games");
 
-
+// colors
+let colors = d3.scaleOrdinal();
 
 
 let kickstarter = "https://cdn.freecodecamp.org/testable-projects-fcc/data/tree_map/kickstarter-funding-data.json";
@@ -129,7 +129,20 @@ function ready(error, kickstarter, movies, games) {
   console.log(movies);
   console.log(games);
 
+
+  // default data
   let curr = movies; 
+
+  // get categories
+  let categories = curr.children.map(function(data) {
+                          return data.name;
+                      });
+
+  // color scale
+  console.log(categories);
+  colors.domain(categories);
+  colors.range(d3.schemeCategory20);
+  
 
   // build treemap
   var treemapLayout = d3.treemap()
@@ -159,7 +172,10 @@ function ready(error, kickstarter, movies, games) {
   .attr("value", function(d) { return d.data.value; })
   .attr("id", function(d) { return d.data.name; })
   .attr('width', function(d) { return d.x1 - d.x0; })
-  .attr('height', function(d) { return d.y1 - d.y0; });
+  .attr('height', function(d) { return d.y1 - d.y0; })
+  .attr("fill", function(d) {
+      return colors(d.data.category); 
+  });
   
   nodes
   .append('text')
@@ -172,6 +188,7 @@ function ready(error, kickstarter, movies, games) {
   .attr("y", 10)
   .call(wrapText);
 
+  // mouse events
   d3.selectAll(".rect")
    .on("mousemove", onMouseMove)
    .on("mouseout", onMouseOut);
@@ -241,6 +258,7 @@ function ready(error, kickstarter, movies, games) {
     let x = d3.event.pageX;
     let y = d3.event.pageY;
 
+
     if (node.attr("category") != null) {
       tooltip.html(str)
             .style("opacity", 1)
@@ -251,13 +269,14 @@ function ready(error, kickstarter, movies, games) {
             .style("left", (x+20) + "px")
             .style("top", y + "px")
             .style("border-radius", "10px");  
+    } else {
+      tooltip.style("opacity", 0);
     }
   }
 
   function onMouseOut(d,i) {
     tooltip.style("opacity", 0);
   }
-
 
 } 
 
