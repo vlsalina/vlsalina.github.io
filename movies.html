@@ -147,7 +147,7 @@ function ready(error, kickstarter, movies, games) {
   // build treemap
   var treemapLayout = d3.treemap()
   .size([1880, 880])
-  .paddingOuter(16);
+  .paddingOuter(0);
 
   var rootNode = d3.hierarchy(curr)
   
@@ -160,7 +160,11 @@ function ready(error, kickstarter, movies, games) {
  
   var nodes = d3.select('svg')
   .selectAll('g')
-  .data(rootNode.descendants())
+  .data(rootNode.descendants().filter(function(d) {
+      if (d.depth > 1) {
+        return d;
+      }   
+   }))
   .enter()
   .append('g')
   .attr('transform', function(d) {return 'translate(' + [d.x0, d.y0] + ')'; })
