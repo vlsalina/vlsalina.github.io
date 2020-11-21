@@ -173,9 +173,11 @@ function ready(error, kickstarter, movies, games) {
   .call(wrapText);
 
   d3.selectAll(".rect")
-   .on("mousemove", onMouseMove);
+   .on("mousemove", onMouseMove)
+   .on("mouseout", onMouseOut);
   d3.select("#tooltip")
-   .on("mousemove", onMouseMove);
+   .on("mousemove", onMouseMove)
+   .on("mouseout", onMouseOut);
 
   
   // wrapper
@@ -251,6 +253,11 @@ function ready(error, kickstarter, movies, games) {
             .style("border-radius", "10px");  
     }
   }
+
+  function onMouseOut(d,i) {
+    tooltip.style("opacity", 0);
+  }
+
 
 } 
 
