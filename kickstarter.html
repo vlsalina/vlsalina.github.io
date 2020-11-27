@@ -262,6 +262,7 @@ function ready(error, kickstarter, movies, games) {
   let width_tracker = 0;
   let second_width_tracker = 0;
   let line_tracker = 0;
+  let adjustor = wordHeight + 10;
 
   let t = 0;
 
@@ -292,13 +293,13 @@ function ready(error, kickstarter, movies, games) {
       .style("font-weight", "none")
       .attr("x", function(d,i) {
         if (i == 0) {
-          return width_tracker;
+          return width_tracker + adjustor;
         }
         width_tracker += wordWidth;
         if (width_tracker > legendWidth) {
           width_tracker = 0;
         }
-        return width_tracker;
+        return width_tracker + adjustor;
          
       })
       .attr("y", function(d,i) {
@@ -317,10 +318,10 @@ function ready(error, kickstarter, movies, games) {
   let cwidth_tracker = 0;
   let csecond_width_tracker = 0;
   let cline_tracker = 0;
+  let cadjustor = 5;
 
   let block_spacer = 200;
-  let adjustor = block_spacer - max - 15;
-
+  
   legend.selectAll(".colorCode")
         .data(categories)
         .enter()
@@ -333,24 +334,24 @@ function ready(error, kickstarter, movies, games) {
         })
         .attr("x", function(d,i) {
            if (i == 0) {
-             return block_spacer + cwidth_tracker - adjustor;
+             return cwidth_tracker;
            }
            cwidth_tracker += block_spacer;
            if (cwidth_tracker > legendWidth) {
              cwidth_tracker = 0;
            }
-           return block_spacer + cwidth_tracker - adjustor;
+           return cwidth_tracker;
         })
         .attr("y", function(d,i) {
            if (i == 0) {
-             return cline_tracker * (2 * wordHeight);
+             return cline_tracker * (2 * wordHeight) + cadjustor;
            }
            csecond_width_tracker += block_spacer;
            if (csecond_width_tracker > legendWidth) {
              csecond_width_tracker = 0;
              cline_tracker++;
            }
-           return cline_tracker * (2 * wordHeight); 
+           return cline_tracker * (2 * wordHeight) + cadjustor; 
         }); 
 
 
