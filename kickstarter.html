@@ -253,7 +253,7 @@ function ready(error, kickstarter, movies, games) {
   }
   console.log(max);
 
-  let legendWidth = 1780;
+  let legendWidth = 1080;
   let legendHeight = 500;
   
   let wordWidth = 200;
@@ -296,7 +296,7 @@ function ready(error, kickstarter, movies, games) {
           return width_tracker + adjustor;
         }
         width_tracker += wordWidth;
-        if (width_tracker > legendWidth) {
+        if (width_tracker > legendWidth - wordWidth) {
           width_tracker = 0;
         }
         return width_tracker + adjustor;
@@ -307,7 +307,7 @@ function ready(error, kickstarter, movies, games) {
           return wordHeight + line_tracker * (2 * wordHeight);
         }
         second_width_tracker += 200;
-        if (second_width_tracker > legendWidth) {
+        if (second_width_tracker > legendWidth - wordWidth) {
           second_width_tracker = 0;
           line_tracker++;
         }
@@ -337,7 +337,7 @@ function ready(error, kickstarter, movies, games) {
              return cwidth_tracker;
            }
            cwidth_tracker += block_spacer;
-           if (cwidth_tracker > legendWidth) {
+           if (cwidth_tracker > legendWidth - wordWidth) {
              cwidth_tracker = 0;
            }
            return cwidth_tracker;
@@ -347,7 +347,7 @@ function ready(error, kickstarter, movies, games) {
              return cline_tracker * (2 * wordHeight) + cadjustor;
            }
            csecond_width_tracker += block_spacer;
-           if (csecond_width_tracker > legendWidth) {
+           if (csecond_width_tracker > legendWidth - wordWidth) {
              csecond_width_tracker = 0;
              cline_tracker++;
            }
